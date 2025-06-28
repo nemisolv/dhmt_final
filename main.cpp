@@ -7,6 +7,8 @@
 float robotX = 0.0f;
 float robotZ = -5.0f;
 float robotRotation = 0.0f;
+float leftArmAngle = 0.0f;
+float rightArmAngle = 0.0f;
 
 void init() {
     glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
@@ -51,14 +53,16 @@ void drawRobot() {
     // Tay trái
     glColor3f(0.8f, 0.8f, 0.8f);
     glPushMatrix();
-    glTranslatef(-0.4f, 0.4f, 0.0f);
+    glTranslatef(-0.5f, 0.4f, 0.0f);
+    glRotatef(leftArmAngle, 1.0f, 0.0f, 0.0f);
     glScalef(0.15f, 0.6f, 0.15f);
     drawCube(1.0f);
     glPopMatrix();
 
     // Tay phải
     glPushMatrix();
-    glTranslatef(0.4f, 0.4f, 0.0f);
+    glTranslatef(0.5f, 0.4f, 0.0f);
+    glRotatef(rightArmAngle, 1.0f, 0.0f, 0.0f);
     glScalef(0.15f, 0.6f, 0.15f);
     drawCube(1.0f);
     glPopMatrix();
@@ -122,11 +126,23 @@ void specialKeys(int key, int x, int y) {
         case GLUT_KEY_UP:
             newX += moveSpeed * sin(robotRotation * M_PI / 180.0f);
             newZ -= moveSpeed * cos(robotRotation * M_PI / 180.0f);
+            // Vung tay khi di chuyển
+            leftArmAngle += 10.0f;
+            rightArmAngle -= 10.0f;
+            // Reset về 0 khi đạt 45 độ
+            if (leftArmAngle >= 45.0f) leftArmAngle = 0.0f;
+            if (rightArmAngle <= -45.0f) rightArmAngle = 0.0f;
             break;
 
         case GLUT_KEY_DOWN:
             newX -= moveSpeed * sin(robotRotation * M_PI / 180.0f);
             newZ += moveSpeed * cos(robotRotation * M_PI / 180.0f);
+            // Vung tay khi di chuyển
+            leftArmAngle += 10.0f;
+            rightArmAngle -= 10.0f;
+            // Reset về 0 khi đạt 45 độ
+            if (leftArmAngle >= 45.0f) leftArmAngle = 0.0f;
+            if (rightArmAngle <= -45.0f) rightArmAngle = 0.0f;
             break;
 
         case GLUT_KEY_LEFT:

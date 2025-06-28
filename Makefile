@@ -3,7 +3,7 @@ CFLAGS = -Wall -std=c++11
 LIBS = -lglut -lGL -lGLU -lm
 
 TARGET = robot3d
-SOURCE = no_annimation.cpp
+SOURCE = main.cpp
 
 $(TARGET): $(SOURCE)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE) $(LIBS)
