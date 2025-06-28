@@ -1,0 +1,24 @@
+# Makefile cho Windows với MinGW
+CC = g++
+CFLAGS = -Wall -std=c++11
+LIBS = -lopengl32 -lglu32 -lfreeglut -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+
+TARGET = robot3d.exe
+SOURCE = main.cpp
+
+$(TARGET): $(SOURCE)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE) $(LIBS)
+
+clean:
+	del /Q $(TARGET)
+
+install-deps:
+	@echo "Cài đặt dependencies cho Windows:"
+	@echo "1. Tải MinGW-w64 từ: https://www.mingw-w64.org/"
+	@echo "2. Tải freeglut từ: https://www.transmissionzero.co.uk/software/freeglut-devel/"
+	@echo "3. Copy freeglut.dll vào thư mục project hoặc C:\Windows\System32"
+
+run: $(TARGET)
+	./$(TARGET)
+
+.PHONY: clean install-deps run 
